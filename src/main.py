@@ -16,3 +16,4 @@ def main():
 
     while run:
         path = input('Input full path of folder: ')
+        sort_mode = input('Input sort mode: ')
