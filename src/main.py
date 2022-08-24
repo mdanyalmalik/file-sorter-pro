@@ -1,11 +1,11 @@
 import os
+import pathlib
 
 FORMATS = {
     'img': ['png', 'jpg', 'jpeg'],
     'video': ['mp4'],
     'doc': ['doc', 'docx', 'pptx', 'xlxs', 'pdf', 'html'],
     'audio': ['mp3', 'wav'],
-    'misc': [],
     'compressed': ['zip', 'rar']
 }
 
@@ -20,12 +20,19 @@ def main():
             'Input sort mode (1: type, format; 2: type, 3: format, 4: reset) : ')
 
         if path == 'cd':
-            files = os.listdir()
-        else:
-            files = os.listdir(path)
+            path = pathlib.Path().resolve()
+        files = os.listdir(path)
+
+        for type in FORMATS:
+            os.makedirs(os.path.join(path, type))
 
         for file in files:
-            print(file)
+            ext = os.path.splitext(file)[1][1:]
+
+            for type, exts in FORMATS.items():
+                if ext in exts:
+                    os.rename(os.path.join(path, file),
+                              os.path.join(path, type, file))
 
         cont = input('Continue? (y, n): ')
         if cont == 'n':
