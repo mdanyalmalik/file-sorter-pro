@@ -10,8 +10,13 @@ FORMATS = {
 }
 
 
-# type, format
-def mode_1(path):
+def mode_1(path):  # type, format
+    if path == 'cd':
+        path = pathlib.Path().resolve()
+    files = os.listdir(path)
+
+
+def mode_2(path):  # type
     if path == 'cd':
         path = pathlib.Path().resolve()
     files = os.listdir(path)
