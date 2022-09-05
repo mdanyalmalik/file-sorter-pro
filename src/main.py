@@ -60,12 +60,20 @@ def mode_4(path):  # reset
     if path == 'cd':
         path = pathlib.Path().resolve()
     files = os.listdir(path)
-    print(files)
 
     for file in files:
         ext = os.path.splitext(file)[1][1:]
 
         if ext == '':
+            for type, exts in FORMATS.items():
+                if file in exts:
+                    inner_files = os.listdir(os.path.join(path, file))
+                    for inner_file in inner_files:
+                        os.rename(os.path.join(path, file, inner_file),
+                                  os.path.join(path, inner_file))
+                        os.rmdir(os.path.join(path, file))
+                elif file in type:
+                    ext_inner = os.path.splitext(file)[1][1:]
 
 
 if __name__ == '__main__':
