@@ -21,14 +21,12 @@ def mode_2(path):  # type
         path = pathlib.Path().resolve()
     files = os.listdir(path)
 
-    for type in FORMATS:
-        os.makedirs(os.path.join(path, type))
-
     for file in files:
         ext = os.path.splitext(file)[1][1:]
 
         for type, exts in FORMATS.items():
             if ext in exts:
+                os.makedirs(os.path.join(path, type))
                 os.rename(os.path.join(path, file),
                           os.path.join(path, type, file))
 
@@ -41,8 +39,8 @@ if __name__ == '__main__':
         sort_mode = input(
             'Input sort mode (1: type, format; 2: type, 3: format, 4: reset) : ')
 
-        if int(sort_mode) == 1:
-            mode_1(path)
+        if int(sort_mode) == 2:
+            mode_2(path)
 
         cont = input('Continue? (y, n): ')
         if cont == 'n':
