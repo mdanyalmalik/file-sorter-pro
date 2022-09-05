@@ -2,9 +2,9 @@ import os
 import pathlib
 
 FORMATS = {
-    'img': ['png', 'jpg', 'jpeg'],
-    'video': ['mp4'],
-    'doc': ['doc', 'docx', 'pptx', 'xlxs', 'pdf', 'html'],
+    'images': ['png', 'jpg', 'jpeg'],
+    'videos': ['mp4'],
+    'documents': ['doc', 'docx', 'pptx', 'xlxs', 'pdf', 'html'],
     'audio': ['mp3', 'wav'],
     'compressed': ['zip', 'rar']
 }
@@ -20,8 +20,10 @@ def mode_1(path):  # type, format
 
         for type, exts in FORMATS.items():
             if ext in exts:
-                os.makedirs(os.path.join(path, type))
-                os.makedirs(os.path.join(path, type, ext))
+                if not os.path.isdir(os.path.join(path, type)):
+                    os.makedirs(os.path.join(path, type))
+                if not os.path.isdir(os.path.join(path, type, ext)):
+                    os.makedirs(os.path.join(path, type, ext))
                 os.rename(os.path.join(path, file),
                           os.path.join(path, type, ext, file))
 
@@ -36,7 +38,8 @@ def mode_2(path):  # type
 
         for type, exts in FORMATS.items():
             if ext in exts:
-                os.makedirs(os.path.join(path, type))
+                if not os.path.isdir(os.path.join(path, type)):
+                    os.makedirs(os.path.join(path, type))
                 os.rename(os.path.join(path, file),
                           os.path.join(path, type, file))
 
@@ -51,7 +54,8 @@ def mode_3(path):  # format
 
         for type, exts in FORMATS.items():
             if ext in exts:
-                os.makedirs(os.path.join(path, ext))
+                if not os.path.isdir(os.path.join(path, ext)):
+                    os.makedirs(os.path.join(path, ext))
                 os.rename(os.path.join(path, file),
                           os.path.join(path, ext, file))
 
@@ -62,18 +66,28 @@ def mode_4(path):  # reset
     files = os.listdir(path)
 
     for file in files:
-        ext = os.path.splitext(file)[1][1:]
-
-        if ext == '':
+        if os.path.isdir(os.path.join(path, file)):
             for type, exts in FORMATS.items():
                 if file in exts:
                     inner_files = os.listdir(os.path.join(path, file))
                     for inner_file in inner_files:
                         os.rename(os.path.join(path, file, inner_file),
                                   os.path.join(path, inner_file))
-                        os.rmdir(os.path.join(path, file))
-                elif file in type:
-                    ext_inner = os.path.splitext(file)[1][1:]
+                    os.rmdir(os.path.join(path, file))
+                elif file == type:
+                    inner_files = os.listdir(os.path.join(path, file))
+                    for inner_file in inner_files:
+                        if not os.path.isdir(os.path.join(path, file, inner_file)):
+                            os.rename(os.path.join(path, file, inner_file),
+                                      os.path.join(path, inner_file))
+                        else:
+                            items = os.listdir(
+                                os.path.join(path, file, inner_file))
+                            for item in items:
+                                os.rename(os.path.join(
+                                    path, file, inner_file, item), os.path.join(path, item))
+                            os.rmdir(os.path.join(path, file, inner_file))
+                    os.rmdir(os.path.join(path, file))
 
 
 if __name__ == '__main__':
