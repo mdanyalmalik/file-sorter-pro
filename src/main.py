@@ -41,12 +41,31 @@ def mode_2(path):  # type
                           os.path.join(path, type, file))
 
 
-def mode_3(path):
-    pass
+def mode_3(path):  # format
+    if path == 'cd':
+        path = pathlib.Path().resolve()
+    files = os.listdir(path)
+
+    for file in files:
+        ext = os.path.splitext(file)[1][1:]
+
+        for type, exts in FORMATS.items():
+            if ext in exts:
+                os.makedirs(os.path.join(path, ext))
+                os.rename(os.path.join(path, file),
+                          os.path.join(path, ext, file))
 
 
-def mode_4(path):
-    pass
+def mode_4(path):  # reset
+    if path == 'cd':
+        path = pathlib.Path().resolve()
+    files = os.listdir(path)
+    print(files)
+
+    for file in files:
+        ext = os.path.splitext(file)[1][1:]
+
+        if ext == '':
 
 
 if __name__ == '__main__':
