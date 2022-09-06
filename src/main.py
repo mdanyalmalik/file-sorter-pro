@@ -10,6 +10,12 @@ FORMATS = {
 }
 
 
+def add_format(type, format):
+    format_list = FORMATS[type]
+    format_list.append(format)
+    FORMATS[type] = format_list
+
+
 def mode_1(path):  # type, format
     if path == 'cd':
         path = pathlib.Path().resolve()
@@ -24,6 +30,7 @@ def mode_1(path):  # type, format
                     os.makedirs(os.path.join(path, type))
                 if not os.path.isdir(os.path.join(path, type, ext)):
                     os.makedirs(os.path.join(path, type, ext))
+
                 os.rename(os.path.join(path, file),
                           os.path.join(path, type, ext, file))
 
