@@ -16,6 +16,10 @@ def add_format(type, format):
     FORMATS[type] = format_list
 
 
+def add_type(type):
+    FORMATS.update({type: []})
+
+
 def mode_1(path):  # type, format
     if path == 'cd':
         path = pathlib.Path().resolve()
