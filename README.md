@@ -8,8 +8,6 @@ A program written in python to help organise folders such as your downloads fold
 
 ### Dependencies
 
-Mentioned in the requirements.txt file.
-
 ### Executing program
 
 To run the code on your own system,
