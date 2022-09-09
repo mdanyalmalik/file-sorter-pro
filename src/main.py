@@ -26,17 +26,24 @@ def mode_1(path):  # type, format
     files = os.listdir(path)
 
     for file in files:
-        ext = os.path.splitext(file)[1][1:]
+        if os.path.isdir(os.path.join(path, file)):
+            if not os.path.isdir(os.path.join(path, 'folders')):
+                os.makedirs(os.path.join(path, 'folders'))
 
-        for type, exts in FORMATS.items():
-            if ext in exts:
-                if not os.path.isdir(os.path.join(path, type)):
-                    os.makedirs(os.path.join(path, type))
-                if not os.path.isdir(os.path.join(path, type, ext)):
-                    os.makedirs(os.path.join(path, type, ext))
+            os.rename(os.path.join(path, file),
+                      os.path.join(path, 'folders', file))
+        else:
+            ext = os.path.splitext(file)[1][1:]
 
-                os.rename(os.path.join(path, file),
-                          os.path.join(path, type, ext, file))
+            for type, exts in FORMATS.items():
+                if ext in exts:
+                    if not os.path.isdir(os.path.join(path, type)):
+                        os.makedirs(os.path.join(path, type))
+                    if not os.path.isdir(os.path.join(path, type, ext)):
+                        os.makedirs(os.path.join(path, type, ext))
+
+                    os.rename(os.path.join(path, file),
+                              os.path.join(path, type, ext, file))
 
 
 def mode_2(path):  # type
@@ -45,14 +52,21 @@ def mode_2(path):  # type
     files = os.listdir(path)
 
     for file in files:
-        ext = os.path.splitext(file)[1][1:]
+        if os.path.isdir(os.path.join(path, file)):
+            if not os.path.isdir(os.path.join(path, 'folders')):
+                os.makedirs(os.path.join(path, 'folders'))
 
-        for type, exts in FORMATS.items():
-            if ext in exts:
-                if not os.path.isdir(os.path.join(path, type)):
-                    os.makedirs(os.path.join(path, type))
-                os.rename(os.path.join(path, file),
-                          os.path.join(path, type, file))
+            os.rename(os.path.join(path, file),
+                      os.path.join(path, 'folders', file))
+        else:
+            ext = os.path.splitext(file)[1][1:]
+
+            for type, exts in FORMATS.items():
+                if ext in exts:
+                    if not os.path.isdir(os.path.join(path, type)):
+                        os.makedirs(os.path.join(path, type))
+                    os.rename(os.path.join(path, file),
+                              os.path.join(path, type, file))
 
 
 def mode_3(path):  # format
@@ -61,14 +75,21 @@ def mode_3(path):  # format
     files = os.listdir(path)
 
     for file in files:
-        ext = os.path.splitext(file)[1][1:]
+        if os.path.isdir(os.path.join(path, file)):
+            if not os.path.isdir(os.path.join(path, 'folders')):
+                os.makedirs(os.path.join(path, 'folders'))
 
-        for type, exts in FORMATS.items():
-            if ext in exts:
-                if not os.path.isdir(os.path.join(path, ext)):
-                    os.makedirs(os.path.join(path, ext))
-                os.rename(os.path.join(path, file),
-                          os.path.join(path, ext, file))
+            os.rename(os.path.join(path, file),
+                      os.path.join(path, 'folders', file))
+        else:
+            ext = os.path.splitext(file)[1][1:]
+
+            for type, exts in FORMATS.items():
+                if ext in exts:
+                    if not os.path.isdir(os.path.join(path, ext)):
+                        os.makedirs(os.path.join(path, ext))
+                    os.rename(os.path.join(path, file),
+                              os.path.join(path, ext, file))
 
 
 def mode_4(path):  # reset
