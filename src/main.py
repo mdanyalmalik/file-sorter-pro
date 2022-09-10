@@ -128,7 +128,7 @@ if __name__ == '__main__':
     while run:
         path = input('Input full path of folder (cd for current directory): ')
         sort_mode = input(
-            'Input sort mode (1: type, format; 2: type, 3: format, 4: reset) : ')
+            'Input sort mode (1: type, format; 2: type, 3: format, 4: reset, 5: add type, 6: add format) : ')
 
         if int(sort_mode) == 1:
             mode_1(path)
@@ -138,6 +138,15 @@ if __name__ == '__main__':
             mode_3(path)
         elif int(sort_mode) == 4:
             mode_4(path)
+        elif int(sort_mode) == 4:
+            print(FORMATS)
+            t = input('Enter type to add: ')
+            add_type(t)
+        elif int(sort_mode) == 4:
+            print(FORMATS)
+            f = input('Enter format(without dot): ')
+            t = input('Enter (existing) type to add the format to: ')
+            add_format(t, f)
 
         cont = input('Continue? (y, n): ')
         if cont == 'n':
