@@ -10,13 +10,13 @@ FORMATS = {
 }
 
 
-def add_format(type, format):
+def add_format(type, format):  # add format to existing file type
     format_list = FORMATS[type]
     format_list.append(format)
     FORMATS[type] = format_list
 
 
-def add_type(type):
+def add_type(type):  # add new file type
     FORMATS.update({type: []})
 
 
