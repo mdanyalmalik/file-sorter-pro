@@ -20,6 +20,10 @@ def add_type(type):  # add new file type
     FORMATS.update({type: []})
 
 
+def remove_format(type, format):  # remove format from existing file type
+    FORMATS[type] = [x for x in FORMATS[type] if x != format]
+
+
 def mode_1(path):  # type, format
     if path == 'cd':
         path = pathlib.Path().resolve()
@@ -128,7 +132,7 @@ if __name__ == '__main__':
     while run:
         path = input('Input full path of folder (cd for current directory): ')
         sort_mode = input(
-            'Input sort mode (1: type, format; 2: type, 3: format, 4: reset, 5: add type, 6: add format) : ')
+            'Input sort mode (1: type, format; 2: type, 3: format, 4: reset, 5: add type, 6: add format, 8: remove format) : ')
 
         if int(sort_mode) == 1:
             mode_1(path)
@@ -138,15 +142,20 @@ if __name__ == '__main__':
             mode_3(path)
         elif int(sort_mode) == 4:
             mode_4(path)
-        elif int(sort_mode) == 4:
+        elif int(sort_mode) == 5:
             print(FORMATS)
             t = input('Enter type to add: ')
             add_type(t)
-        elif int(sort_mode) == 4:
+        elif int(sort_mode) == 6:
             print(FORMATS)
             f = input('Enter format(without dot): ')
             t = input('Enter (existing) type to add the format to: ')
             add_format(t, f)
+        elif int(sort_mode) == 8:
+            print(FORMATS)
+            f = input('Enter (existing) format(without dot): ')
+            t = input('Enter (existing) type to remove format from: ')
+            remove_format(t, f)
 
         cont = input('Continue? (y, n): ')
         if cont == 'n':
