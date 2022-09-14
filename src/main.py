@@ -24,6 +24,10 @@ def remove_format(type, format):  # remove format from existing file type
     FORMATS[type] = [x for x in FORMATS[type] if x != format]
 
 
+def remove_type(type):  # remove whole file type
+    del FORMATS[type]
+
+
 def mode_1(path):  # type, format
     if path == 'cd':
         path = pathlib.Path().resolve()
@@ -132,7 +136,7 @@ if __name__ == '__main__':
     while run:
         path = input('Input full path of folder (cd for current directory): ')
         sort_mode = input(
-            'Input sort mode (1: type, format; 2: type, 3: format, 4: reset, 5: add type, 6: add format, 8: remove format) : ')
+            'Input sort mode (1: type, format; 2: type, 3: format, 4: reset, 5: add type, 6: add format, 7: remove type, 8: remove format) : ')
 
         if int(sort_mode) == 1:
             mode_1(path)
@@ -151,6 +155,10 @@ if __name__ == '__main__':
             f = input('Enter format(without dot): ')
             t = input('Enter (existing) type to add the format to: ')
             add_format(t, f)
+        elif int(sort_mode) == 7:
+            print(FORMATS)
+            t = input('Enter type to remove: ')
+            remove_type(t)
         elif int(sort_mode) == 8:
             print(FORMATS)
             f = input('Enter (existing) format(without dot): ')
