@@ -136,7 +136,7 @@ if __name__ == '__main__':
     while run:
         path = input('Input full path of folder (cd for current directory): ')
         sort_mode = input(
-            'Input sort mode (1: type, format; 2: type, 3: format, 4: reset, 5: add type, 6: add format, 7: remove type, 8: remove format) : ')
+            'Input sort mode (1: type, format; 2: type, 3: format, 4: reset, 5: add type, 6: add format, 7: remove type, 8: remove format, 9: display formats) : ')
 
         if int(sort_mode) == 1:
             mode_1(path)
@@ -164,6 +164,8 @@ if __name__ == '__main__':
             f = input('Enter (existing) format(without dot): ')
             t = input('Enter (existing) type to remove format from: ')
             remove_format(t, f)
+        elif int(sort_mode) == 9:
+            print(FORMATS)
 
         cont = input('Continue? (y, n): ')
         if cont == 'n':
