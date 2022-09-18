@@ -2,7 +2,7 @@
 
 ## Description
 
-A program written in python to help organise folders such as your downloads folder. There are different modes to sort and you can add different file types and formats if you wish.
+A program written in python to help organise folders such as your downloads folder. There are different modes to sort and you can add different file types and formats if you wish. The UI is implemented in REACT using electron JS (TBD).
 
 ## Getting Started
 
